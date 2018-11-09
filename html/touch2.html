@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<link rel="stylesheet" href="./css/base.css">
+	<link rel="stylesheet" href="./css/touch1.css">
+	<style>
+		.box{
+			height: 20px; width: 20px; background-color: red;position:absolute;z-index: 99999
+		}
+	</style>
+</head>
+<body>
+
+<div class="g-count count-position-left"  id="countLeftNum">
+	<div class="count-num one-num click-scale">
+		<span class="no1-num count-type-0"></span>
+		<span class="no2-num count-type-0"></span>
+	</div>
+</div>
+
+<div class="g-touch touch2-position-left touch2">
+	<div class="rotate-4"></div>
+	<div class="rotate-6 click-scale" id="leftCircle"></div>
+</div>
+
+<div class="g-con">
+	<div class="line left"></div>
+	<div class="time"></div>
+	<div class="time-dtl">
+		<div id="hour"><span class="time-logo0"></span><span class="time-logo0"></span><i></i></div>
+		<div id="minute"><span class="time-logo0"></span><span class="time-logo0"></span><i></i></div>
+		<div id="second"><span class="time-logo0"></span><span class="time-logo0"></span><i></i></div>
+		<div id="ms"><span class="time-logo0"></span><span class="time-logo0"></span></div>
+	</div>
+	<div class="line right"></div>
+	<div class="circle">
+		<div class="rotate-1"></div>
+		<div class="rotate-2"></div>
+		<div class="rotate-3"></div>
+	</div>
+</div>
+
+<div class="g-touch touch2-position-right touch2">
+	<div class="rotate-4"></div>
+	<div class="rotate-6 click-scale" id="rightCircle"></div>
+</div>
+
+<div class="g-count count-position-right" id="countRightNum">
+	<div class="count-num one-num click-scale">
+		<span class="no1-num count-type-0"></span>
+		<span class="no2-num count-type-0"></span>
+	</div>
+</div>
+</body>
+</html>
+<script src="js/jquery.min.js"></script>
+<script src="js/func.js"></script>
+<script src="js/socket.io.js"></script>
+<script src="js/socket.min.js"></script>
+<script>
+	//建立连接
+//	var ws = new WebSocket("ws://192.168.1.40:8181");
+	var ws = new WebSocket("ws://192.168.18.11:8181");
+	var nickname = "";
+	var countLeft = 0;
+	var countRight = 0;
+	var timer = null;
+
+	var socket = io('http://192.168.18.11:8082');
+//	var socket = io('http://192.168.16.150:8082');
+//	var socket = io('http://192.168.16.171:8082');
+
+	socket.on('server_hello', function (data)
+	{
+		console.log(data)
+		//首次连接成功
+	})
+
+	ws.onopen = function (e)
+	{
+		console.log('Connection to server opened');
+		var netData = {
+			type: 'cour',
+			pageStatus: 2,
+			courseType: 5
+		}
+		ws.send(JSON.stringify(netData));
+	}
+	//收到消息处理
+	ws.onmessage = function (e)
+	{
+		var data = JSON.parse(e.data)
+		console.log(data);
+		if (data.pageStatus == 2)
+		{
+			socket.on('touch', function (data)
+			{
+				var $x = 0;
+				var $y = 0;
+				if(data.e == 'add'){
+					$('<div class="box" id="'+data.id+'">').css({top: data.y + 'px', left: data.x + 'px'}).appendTo("body");
+				} else if(data.e == 'del'){
+					$("#"+data.id).remove();
+					console.log("#" + data.id);
+//					$('<div class="box" id="'+data.id+'">').css({top: $y, left: $x}).appendTo("body");
+				}
+
+				if (data.x != undefined)
+				{
+					$x = data.x;
+					$y = data.y;
+					$('#box').css({left:$x,top:$y});
+					if (getPosition('#leftCircle', $x, $y))
+					{
+						isFlag('#leftCircle')
+						++countLeft;
+						setCount('#countLeftNum', countLeft, 'count-type-');
+					}
+
+					if (getPosition('#rightCircle', $x, $y))
+					{
+						isFlag('rightCircle');
+						++countRight;
+						setCount('#countRightNum', countRight, 'count-type-');
+					}
+				}
+
+			})
+
+			var href = window.location.href.split('/');
+			if (href[href.length - 1] != 'touch' + data.courseId + '.html')
+			{
+				window.location.href = 'touch' + data.courseId + '.html';
+			}
+			var h = parseInt(data.totalTime / (60 * 60 * 1000));
+			var m = parseInt((data.totalTime - h * 60 * 60 * 1000) / (60 * 1000));
+			var s = parseInt((data.totalTime - h * 60 * 60 * 1000 - m * 60 * 1000) / 1000);
+			var ms = parseInt((data.totalTime - h * 60 * 60 * 1000 - m * 60 * 1000 - s * 1000) / 100);
+			if (data.courseType == 0 || data.courseType == 2)
+			{
+				if (data.courseType == 2)
+				{
+					h = parseInt(data.totalTime / (60 * 60 * 1000));
+					m = parseInt((data.totalTime - h * 60 * 60 * 1000) / (60 * 1000));
+					s = parseInt((data.totalTime - h * 60 * 60 * 1000 - m * 60 * 1000) / 1000);
+					ms = parseInt((data.totalTime - h * 60 * 60 * 1000 - m * 60 * 1000 - s * 1000) / 100);
+					setTime(h, m, s, ms, 'time-logo');
+				}
+
+				clearInterval(timer);
+				timer = setInterval(function ()
+				{
+
+					++ms == 100 ? (s++, ms = 0) : null;
+					s == 60 ? (m++, s = 0) : null;
+					m == 60 ? (h++, m = 0) : null;
+					setTime(h, m, s, ms, 'time-logo');
+				}, 10);
+			}
+			if (data.courseType == 1)
+			{
+				clearInterval(timer);
+				h = parseInt(data.totalTime / (60 * 60 * 1000));
+				m = parseInt((data.totalTime - h * 60 * 60 * 1000) / (60 * 1000));
+				s = parseInt((data.totalTime - h * 60 * 60 * 1000 - m * 60 * 1000) / 1000);
+				ms = parseInt((data.totalTime - h * 60 * 60 * 1000 - m * 60 * 1000 - s * 1000) / 100);
+				setTime(h, m, s, ms, 'time-logo');
+
+			}
+			if (data.courseType == 3)
+			{
+				clearInterval(timer);
+				h = 0;
+				m = 0;
+				s = 0;
+				ms = 0;
+				count = 0;
+				setTime(h, m, s, ms, 'time-logo');
+			}
+		}
+		else if (data.pageStatus == 1)
+		{
+			window.location.href = 'index' + data.pageId + '.html';
+		}
+
+	}
+	ws.onclose = function (e)
+	{
+		console.log("Connection closed");
+	}
+
+	//发送消息
+	function sendMessage($data)
+	{
+		ws.send(JSON.stringify({
+			value: $data,
+			id: 1,
+			type: -1
+		}));
+
+	}
+
+	function sendMessage2($type)
+	{
+		ws.send(JSON.stringify({
+			id: 1,
+			type: $type
+		}));
+
+	}
+
+	function disconnect()
+	{
+		ws.close();
+	}
+</script>
+

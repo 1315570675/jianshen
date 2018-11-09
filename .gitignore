@@ -1,0 +1,11 @@
+/.idea/
+/node_modules/
+/dist/
+/publish/
+/release/
+/src/jslib/
+*.zip
+*.rar
+*.log
+/doc/
+/.DS_Store/

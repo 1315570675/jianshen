@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<link rel="stylesheet" href="./css/base.css">
+	<link rel="stylesheet" href="./css/ball.css">
+	<style>
+		.box{
+			height: 20px; width: 20px; background-color: red;position:absolute;z-index: 99999
+		}
+	</style>
+</head>
+<body>
+<div class="g-left left">
+	<div class="flow">
+		<div class="flow-dtl" id="ball-1">
+			<div class="ball">
+				<div class="ball-bg1"></div>
+				<div class="ball-bg2"></div>
+			</div>
+			<div class='time-dtl'>
+				<div class="click-cout">
+					<span class="no1-num count-0"></span>
+					<span class="no2-num count-0"></span>
+				</div>
+				<div class="click-time">
+					<div class="minute"><span class="count-0"></span><span class="count-0"></span><i></i></div>
+					<div class="second"><span class="count-0"></span><span class="count-0"></span><i></i></div>
+					<div class="ms"><span class="count-0"></span><span class="count-0"></span></div>
+				</div>
+			</div>
+		</div>
+		<div class="flow-dtl" id="ball-2">
+			<div class="ball">
+				<div class="ball-bg1"></div>
+				<div class="ball-bg2"></div>
+			</div>
+			<div class='time-dtl'>
+				<div class="click-cout">
+					<span class="no1-num count-0"></span>
+					<span class="no2-num count-0"></span>
+				</div>
+				<div class="click-time">
+					<div class="minute"><span class="count-0"></span><span class="count-0"></span><i></i></div>
+					<div class="second"><span class="count-0"></span><span class="count-0"></span><i></i></div>
+					<div class="ms"><span class="count-0"></span><span class="count-0"></span></div>
+				</div>
+			</div>
+		</div>
+		<div class="flow-dtl" id="ball-3">
+			<div class="ball">
+				<div class="ball-bg1"></div>
+				<div class="ball-bg2"></div>
+			</div>
+			<div class='time-dtl'>
+				<div class="click-cout">
+					<span class="no1-num count-0"></span>
+					<span class="no2-num count-0"></span>
+				</div>
+				<div class="click-time">
+					<div class="minute"><span class="count-0"></span><span class="count-0"></span><i></i></div>
+					<div class="second"><span class="count-0"></span><span class="count-0"></span><i></i></div>
+					<div class="ms"><span class="count-0"></span><span class="count-0"></span></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="linear"></div>
+</div>
+<div class="g-time">
+	<div class="time-bg"></div>
+	<div class="time-con">
+		<div id="hour"><span class="time-logo0"></span><span class="time-logo0"></span><i></i></div>
+		<div id="minute"><span class="time-logo0"></span><span class="time-logo0"></span><i></i></div>
+		<div id="second"><span class="time-logo0"></span><span class="time-logo0"></span><i></i></div>
+		<div id="ms"><span class="time-logo0"></span><span class="time-logo0"></span></div>
+	</div>
+
+</div>
+<div class="g-left right">
+	<div class="flow">
+		<div class="flow-dtl" id="ball-4">
+			<div class="ball">
+				<div class="ball-bg1"></div>
+				<div class="ball-bg2"></div>
+			</div>
+			<div class='time-dtl'>
+				<div class="click-cout">
+					<span class="no1-num count-0"></span>
+					<span class="no2-num count-0"></span>
+				</div>
+				<div class="click-time">
+					<div class="minute"><span class="count-0"></span><span class="count-0"></span><i></i></div>
+					<div class="second"><span class="count-0"></span><span class="count-0"></span><i></i></div>
+					<div class="ms"><span class="count-0"></span><span class="count-0"></span></div>
+				</div>
+			</div>
+		</div>
+		<div class="flow-dtl" id="ball-5">
+			<div class="ball">
+				<div class="ball-bg1"></div>
+				<div class="ball-bg2"></div>
+			</div>
+			<div class='time-dtl'>
+				<div class="click-cout">
+					<span class="no1-num count-0"></span>
+					<span class="no2-num count-0"></span>
+				</div>
+				<div class="click-time">
+					<div class="minute"><span class="count-0"></span><span class="count-0"></span><i></i></div>
+					<div class="second"><span class="count-0"></span><span class="count-0"></span><i></i></div>
+					<div class="ms"><span class="count-0"></span><span class="count-0"></span></div>
+				</div>
+			</div>
+		</div>
+		<div class="flow-dtl" id="ball-6">
+			<div class="ball">
+				<div class="ball-bg1"></div>
+				<div class="ball-bg2"></div>
+			</div>
+			<div class='time-dtl'>
+				<div class="click-cout">
+					<span class="no1-num count-0"></span>
+					<span class="no2-num count-0"></span>
+				</div>
+				<div class="click-time">
+					<div class="minute"><span class="count-0"></span><span class="count-0"></span><i></i></div>
+					<div class="second"><span class="count-0"></span><span class="count-0"></span><i></i></div>
+					<div class="ms"><span class="count-0"></span><span class="count-0"></span></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="linear"></div>
+</div>
+</body>
+</html>
+<script src="js/jquery.min.js"></script>
+<script src="js/func.js"></script>
+<script src="js/socket.io.js"></script>
+<script src="js/socket.min.js"></script>
+<script>
+	//建立连接
+//	var ws = new WebSocket("ws://192.168.1.40:8181");
+	var ws = new WebSocket("ws://192.168.18.11:8181");
+	var nickname = "";
+	var countLeft = 0;
+	var countRight = 0;
+	var timer = null;
+
+	var socket = io('http://192.168.18.11:8082');
+//	var socket = io('http://192.168.16.150:8082');
+//	var socket = io('http://192.168.16.171:8082');
+
+	var ball1 = new ball('#ball-1');
+	var ball2 = new ball('#ball-2');
+	var ball3 = new ball('#ball-3');
+	var ball4 = new ball('#ball-4');
+	var ball5 = new ball('#ball-5');
+	var ball6 = new ball('#ball-6')
+
+	socket.on('server_hello', function (data)
+	{
+		console.log(data)
+		//首次连接成功
+	})
+
+
+
+	function ball(id)
+	{
+		this.id = id;
+		this.count = 0;
+		this.m = 0;
+		this.s = 0;
+		this.ms = 0;
+		this.timer = null;
+	}
+
+	ball.prototype.setTimes = function ()
+	{
+		this.timer = setInterval(()=> {
+		++this.ms == 100 ? (this.s++, this.ms = 0) : null;
+		this.s == 60 ? (this.m++, this.s = 0) : null;
+		setInfoTime(this.id, 'count-', this.m, this.s, this.ms)
+	}, 10);
+	}
+
+	ball.prototype.setAnimate = function ()
+	{
+		isFlag(this.id + ' .ball-bg2')
+		isFlag(this.id + ' .ball-bg1')
+	}
+
+	ball.prototype.setCount = function ()
+	{
+		$(this.id + ' .no1-num').removeClass().addClass('no1-num' + ' count-' + addTrim(this.count).substr(0, 1));
+		$(this.id+  ' .no2-num').removeClass().addClass('no2-num' + ' count-' + addTrim(this.count).substr(1, 1));
+	}
+
+	ball.prototype.clickEffect = function ()
+	{
+		if (this.count < 9)
+		{
+			this.count++;
+			this.count == 1 ? this.setTimes() : null;
+			this.setAnimate();
+			this.setCount();
+		}else if(this.count == 9){
+			++this.count;
+			this.setCount();
+			clearTimeout(this.timer);
+			this.m = 0;
+			this.s = 0;
+			this.ms = 0;
+		}
+	}
+
+	ws.onopen = function (e)
+	{
+		console.log('Connection to server opened');
+		var netData = {
+			type: 'cour',
+			pageStatus: 2,
+			courseType: 5
+		}
+		ws.send(JSON.stringify(netData));
+	}
+	//收到消息处理
+	ws.onmessage = function (e)
+	{
+		var data = JSON.parse(e.data)
+		console.log(data);
+		if (data.pageStatus == 2)
+		{
+			socket.on('touch', function (data)
+			{
+				var $x = 0;
+				var $y = 0;
+				if(data.e == 'add'){
+					$('<div class="box" id="'+data.id+'">').css({top: data.y + 'px', left: data.x + 'px'}).appendTo("body");
+				} else if(data.e == 'del'){
+					$("#"+data.id).remove();
+					console.log("#" + data.id);
+//					$('<div class="box" id="'+data.id+'">').css({top: $y, left: $x}).appendTo("body");
+				}
+				if (data.x != undefined)
+				{
+					$x = data.x;
+					$y = data.y;
+				}
+				if(getPosition('#ball-1 .ball-bg2',$x,$y)){
+					ball1.clickEffect();
+				}
+				if(getPosition('#ball-2 .ball-bg2',$x,$y)){
+					ball2.clickEffect();
+				}
+				if(getPosition('#ball-3 .ball-bg2',$x,$y)){
+					ball3.clickEffect();
+				}
+				if(getPosition('#ball-4 .ball-bg2',$x,$y)){
+					ball4.clickEffect();
+				}
+				if(getPosition('#ball-5 .ball-bg2',$x,$y)){
+					ball5.clickEffect();
+				}
+				if(getPosition('#ball-6 .ball-bg2',$x,$y)){
+					ball6.clickEffect();
+				}
+			})
+
+			var href = window.location.href.split('/');
+			if (href[href.length - 1] != 'touch' + data.courseId + '.html')
+			{
+				window.location.href = 'touch' + data.courseId + '.html';
+			}
+			var h = parseInt(data.totalTime / (60 * 60 * 1000));
+			var m = parseInt((data.totalTime - h * 60 * 60 * 1000) / (60 * 1000));
+			var s = parseInt((data.totalTime - h * 60 * 60 * 1000 - m * 60 * 1000) / 1000);
+			var ms = parseInt((data.totalTime - h * 60 * 60 * 1000 - m * 60 * 1000 - s * 1000) / 100);
+			if (data.courseType == 0 || data.courseType == 2)
+			{
+				if (data.courseType == 2)
+				{
+					h = parseInt(data.totalTime / (60 * 60 * 1000));
+					m = parseInt((data.totalTime - h * 60 * 60 * 1000) / (60 * 1000));
+					s = parseInt((data.totalTime - h * 60 * 60 * 1000 - m * 60 * 1000) / 1000);
+					ms = parseInt((data.totalTime - h * 60 * 60 * 1000 - m * 60 * 1000 - s * 1000) / 100);
+					setTime(h, m, s, ms, 'time-logo');
+				}
+
+				clearInterval(timer);
+				timer = setInterval(function ()
+				{
+					++ms == 100 ? (s++, ms = 0) : null;
+					s == 60 ? (m++, s = 0) : null;
+					m == 60 ? (h++, m = 0) : null;
+					setTime(h, m, s, ms, 'time-logo');
+				}, 10);
+			}
+			if (data.courseType == 1)
+			{
+				h = parseInt(data.totalTime / (60 * 60 * 1000));
+				m = parseInt((data.totalTime - h * 60 * 60 * 1000) / (60 * 1000));
+				s = parseInt((data.totalTime - h * 60 * 60 * 1000 - m * 60 * 1000) / 1000);
+				ms = parseInt((data.totalTime - h * 60 * 60 * 1000 - m * 60 * 1000 - s * 1000) / 100);
+				setTime(h, m, s, ms, 'time-logo');
+				clearInterval(timer);
+			}
+			if (data.courseType == 3)
+			{
+				clearInterval(timer);
+				h = 0;
+				m = 0;
+				s = 0;
+				ms = 0;
+				count = 0;
+				setTime(h, m, s, ms, 'time-logo');
+			}
+
+		}
+		else if (data.pageStatus == 1)
+		{
+			window.location.href = 'index' + data.pageId + '.html';
+		}
+
+	}
+	ws.onclose = function (e)
+	{
+		console.log("Connection closed");
+	}
+
+	//发送消息
+	function sendMessage($data)
+	{
+		ws.send(JSON.stringify({
+			value: $data,
+			id: 1,
+			type: -1
+		}));
+
+	}
+
+	function sendMessage2($type)
+	{
+		ws.send(JSON.stringify({
+			id: 1,
+			type: $type
+		}));
+
+	}
+
+	function disconnect()
+	{
+		ws.close();
+	}
+</script>
+
+<script>
+
+
+</script>

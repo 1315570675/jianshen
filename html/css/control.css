@@ -1,0 +1,108 @@
+html, body {
+	width: 100%;
+	height: 100%;
+	font-size: 14px;
+}
+
+.g-nav {
+	width: 1.2rem;
+	height: 100%;
+	border: 1px solid #000000;
+	float: left;
+}
+
+.g-nav div {
+	width: 1.2rem;
+	height: .6rem;
+	line-height:.6rem;
+	border-bottom: 1px solid #000000;
+	text-align: center;
+	cursor: pointer;
+}
+
+.g-nav div:nth-of-type(1){
+	color: #ccc;
+}
+
+.g-base, .g-project {
+	height: auto;
+	overflow: hidden;
+	float: left;
+}
+
+
+.g-base .base-qm, .g-project .base-qm {
+	margin-top: .4rem;
+	margin-left: .5rem;
+	overflow: hidden;
+	height: .8rem;
+	display: flex;
+	width: 7rem;
+}
+
+.g-base .base-qm div, .g-project .base-qm div {
+	flex: 1;
+	height: .4rem;
+	text-align: center;
+	line-height: .4rem;
+	border: 1px solid #000000;
+	float: left;
+	margin-left: .4rem;
+	position: relative;
+	cursor: pointer;
+}
+
+.g-base .base-qm div:hover, .g-project .base-qm div:hover {
+	color: #555555;
+	border: 1px solid #555555;
+}
+
+.g-base .base-qm div p, .g-project .base-qm div p {
+	position: absolute;
+	width: 100%;
+	height: .25rem;
+	line-height: .25rem;
+}
+
+.g-base .base-time, .g-project .base-time {
+	margin-top: .5rem;
+}
+
+.g-base .base-time span:nth-of-type(1), .g-project .base-time span:nth-of-type(1) {
+	margin-left: 2rem;
+}
+
+.g-base .base-time span:nth-of-type(2), .g-project .base-time span:nth-of-type(2) {
+	margin-left: .3rem;
+}
+
+.g-base .base-opt, .g-project .base-opt {
+	margin-top: .6rem;
+	overflow: hidden;
+	margin-left: 1.65rem;
+}
+
+.g-base .base-opt div, .g-project .base-opt div {
+	float: left;
+	width: 1rem;
+	height: .4rem;
+	border: 1px solid #000000;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	text-align: center;
+	line-height: .4rem;
+	margin-right: .5rem;
+	cursor: pointer;
+}
+
+.g-base .base-opt div:hover, .g-project .base-opt div:hover {
+	color: #666666;
+	border: 1px solid #555555;
+}
+
+.g-project {
+	display: none;
+}
+
+/*# sourceMappingURL=control.css.map */

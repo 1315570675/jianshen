@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<style>
+		*{
+			margin:0;
+			padding:0;
+		}
+		#con{
+			height: 900px;
+			width: 900px;
+			position: absolute;
+			left: 300px;
+			top:300px;
+			background-color: #fcf;
+			-webkit-transform: scaleX(0.4);
+			-moz-transform: scaleX(0.4);
+			-ms-transform: scaleX(0.4);
+			-o-transform: scaleX(0.4);
+			transform: scaleX(0.4);
+		}
+		#box{
+			width: 200px;
+			height: 200px;
+			position: absolute;
+			left:0;
+			right:0;
+			top:0;
+			bottom:0;
+			margin: auto;
+			background-color: red;
+		}
+	</style>
+</head>
+<body>
+	<div id="con">
+		<div id="box"></div>
+	</div>
+</body>
+</html>
+<script src="js/jquery.min.js"></script>
+<script>
+	console.log($('#con').offset().left)
+	console.log($('#box').offset().left)
+	console.log($('#box').width())
+</script>

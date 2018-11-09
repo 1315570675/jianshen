@@ -1,0 +1,202 @@
+@import "animation.css";
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: url("./../images/ball-bg.png") no-repeat;
+  background-color: #ffffff;
+}
+
+@mixin box-center {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  margin: auto;
+}
+
+.left {
+  left: 100px;
+}
+
+.right {
+  right: 100px;
+
+}
+
+.g-left {
+  width: 690px;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  position: absolute;
+  .flow {
+	width: 690px;
+	height: 700px;
+	background: url("./../images/linear.png") no-repeat center 150px;
+	margin-top: 70px;
+	.flow-dtl{
+	  height: 700px;
+	  float: left;
+	  overflow: hidden;
+	  &:nth-of-type(1) {
+		margin-left: 44px;
+	  }
+	}
+	.ball {
+	  width: 200px;
+	  height: 379px;
+	  margin-bottom: 20px;
+	  background: url("./../images/ball-circle-1.png") no-repeat center;
+	  position: relative;
+
+	  .ball-bg1 {
+		width: 200px;
+		height: 379px;
+		background: url("./../images/ball-circle-3.png") no-repeat center;
+		@include box-center;
+		animation: scale-3 1s linear infinite paused;
+	  }
+	  .ball-bg2 {
+		width: 86px;
+		height: 192px;
+		background: url("./../images/ball-circle-2.png") no-repeat center;
+		@include box-center;
+		animation: opacity1 1s linear infinite paused;
+	  }
+	}
+	.ball-click {
+	  .ball-bg2 {
+		animation: opacity1 1s linear infinite paused;
+	  }
+	  .ball-bg1 {
+		animation: scale-3 1s linear infinite paused;
+	  }
+	}
+	.time-dtl {
+	  width: 117px;
+	  height: 257px;
+	  float: left;
+	  background: url("./../images/ball-time-dtl.png") no-repeat;
+	  margin-left: 38px;
+	  position: relative;
+	  .click-cout {
+		width: 40px;
+		height: 67px;
+		display: block;
+		margin: 44px auto;
+		span {
+		  width: 20px;
+		  height: 67px;
+		  float: left;
+		}
+	  }
+	  .click-time{
+		width: 100%;
+		height: 67px;
+		margin-top: 78px;
+		div{
+		  height: 67px;
+		  float: left;
+		  -webkit-transform: scale(0.4);
+		  -moz-transform: scale(0.4);
+		  -ms-transform: scale(0.4);
+		  -o-transform: scale(0.4);
+		  transform: scale(0.4);
+		  margin-left: -22px;
+		  &:nth-of-type(1){
+			margin-left: 15px;
+		  }
+		  span{
+			display: block;
+			width: 20px;
+			height: 67px;
+			float: left;
+		  }
+		  i{
+			display: block;
+			float: left;
+			width: 3px;
+			height: 7px;
+			background-color: #00ffff;
+			margin-top: 44px;
+			margin-left: 5px;
+			margin-right: -2px;
+			&:before{
+			  content: '';
+			  display: block;
+			  width: 3px;
+			  height: 7px;
+			  background-color: #00ffff;
+			  margin-top: 15px;
+			}
+		  }
+		}
+	  }
+	}
+  }
+  .linear {
+	width: 690px;
+	height: 81px;
+	background: url("./../images/linear.png") no-repeat;
+	position: absolute;
+	bottom: 105px;
+  }
+}
+
+.g-time {
+  height: 100%;
+  width: 420px;
+  position: absolute;
+  @include box-center;
+  .time-bg {
+	width: 420px;
+	height: 942px;
+	background: url("./../images/ball-time-bg.png") no-repeat;
+	@include box-center;
+	animation: scale-2 1.5s linear infinite;
+  }
+  .time-con {
+	width: 390px;
+	height: 175px;
+	z-index: 5;
+	padding-left: 5px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	background: url("./../images/ball-time-con.png") no-repeat;
+	-webkit-background-size: 390px 175px;
+	background-size: 390px 175px;
+	@include box-center;
+	div {
+	  float: left;
+	  margin-top: 50px;
+	  span {
+		display: block;
+		float: left;
+		width: 45px;
+		height: 70px;
+	  }
+	  i {
+		display: block;
+		height: 12px;
+		width: 5px;
+		background: #ffffff;
+		float: left;
+		margin-top: 39px;
+		margin-right: 3px;
+		&:before {
+		  content: '';
+		  display: block;
+		  height: 12px;
+		  width: 5px;
+		  background: #ffffff;
+		  margin-top: 17px;
+		}
+	  }
+	}
+
+  }
+}

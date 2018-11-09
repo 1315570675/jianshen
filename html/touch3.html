@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<link rel="stylesheet" href="./css/base.css">
+	<link rel="stylesheet" href="./css/animate.css">
+	<link rel="stylesheet" href="./css/lattice.css">
+	<style>
+		.box{
+			height: 20px; width: 20px; background-color: red;position:absolute;z-index: 99999
+		}
+	</style>
+</head>
+<body>
+<!--<div style="height: 20px; width: 20px; background-color: red;position:absolute;z-index: 99999;" id="box"></div>-->
+
+<div class="g-count count-left" id="countLeftNum">
+	<div class="count-bg"></div>
+	<div class="count-num one-num">
+		<span class="no1-num count-0"></span>
+		<span class="no2-num count-0"></span>
+	</div>
+</div>
+<div class="g-lat lat-left" id="latLeft">
+	<div class="lat-top">
+		<div class="num-count7 num1" count="0">
+			<div class="num-bg"></div>
+			<div class="num-dtl num-7"></div>
+		</div>
+		<div class="num-count8 num2" count="0">
+			<div class="num-bg"></div>
+			<div class="num-dtl num-8"></div>
+		</div>
+		<div class="num-count9 num3" count="0">
+			<div class="num-bg"></div>
+			<div class="num-dtl num-9"></div>
+		</div>
+	</div>
+	<div class="lat-center">
+		<div class="num-count6 num1" count="0">
+			<div class="num-bg"></div>
+			<div class="num-dtl num-6"></div>
+		</div>
+		<div class="num-count5 num2" count="0">
+			<div class="num-bg"></div>
+			<div class="num-dtl num-5"></div>
+		</div>
+		<div class="num-count4 num3" count="0">
+			<div class="num-bg"></div>
+			<div class="num-dtl num-4"></div>
+		</div>
+	</div>
+	<div class="lat-bottom">
+		<div class="num-count1 num1" count="0">
+			<div class="num-bg click-scale"></div>
+			<div class="num-dtl num-1"></div>
+		</div>
+		<div class="num-count2 num2" count="0">
+			<div class="num-bg"></div>
+			<div class="num-dtl num-2"></div>
+		</div>
+		<div class="num-count3 num3" count="0">
+			<div class="num-bg"></div>
+			<div class="num-dtl num-3"></div>
+		</div>
+	</div>
+</div>
+<div class="g-time">
+	<div class="time-bg"></div>
+	<div class="time-dtl">
+		<div id="hour"><span class="time-logo0"></span><span class="time-logo0"></span><i></i></div>
+		<div id="minute"><span class="time-logo0"></span><span class="time-logo0"></span><i></i></div>
+		<div id="second"><span class="time-logo0"></span><span class="time-logo0"></span><i></i></div>
+		<div id="ms"><span class="time-logo0"></span><span class="time-logo0"></span></div>
+	</div>
+	<div class="circle">
+		<div class="rotate-1"></div>
+		<div class="rotate-2"></div>
+		<div class="rotate-3"></div>
+	</div>
+</div>
+<div class="g-lat lat-right" id="latRight">
+	<div class="lat-top">
+		<div class="num-count7 num1" count="0">
+			<div class="num-bg"></div>
+			<div class="num-dtl num-7"></div>
+		</div>
+		<div class="num-count8 num2" count="0">
+			<div class="num-bg"></div>
+			<div class="num-dtl num-8"></div>
+		</div>
+		<div class="num-count9 num3" count="0">
+			<div class="num-bg"></div>
+			<div class="num-dtl num-9"></div>
+		</div>
+	</div>
+	<div class="lat-center">
+		<div class="num-count6 num1" count="0">
+			<div class="num-bg"></div>
+			<div class="num-dtl num-6"></div>
+		</div>
+		<div class="num-count5 num2" count="0">
+			<div class="num-bg"></div>
+			<div class="num-dtl num-5"></div>
+		</div>
+		<div class="num-count4 num3" count="0">
+			<div class="num-bg"></div>
+			<div class="num-dtl num-4"></div>
+		</div>
+	</div>
+	<div class="lat-bottom">
+		<div class="num-count1 num1" count="0">
+			<div class="num-bg click-scale"></div>
+			<div class="num-dtl num-1"></div>
+		</div>
+		<div class="num-count2 num2" count="0">
+			<div class="num-bg"></div>
+			<div class="num-dtl num-2"></div>
+		</div>
+		<div class="num-count3 num3" count="0">
+			<div class="num-bg"></div>
+			<div class="num-dtl num-3"></div>
+		</div>
+	</div>
+</div>
+<div class="g-count count-right click-rotate" id="countRightNum">
+	<div class="count-bg"></div>
+	<div class="count-num one-num">
+		<span class="no1-num count-0"></span>
+		<span class="no2-num count-0"></span>
+	</div>
+</div>
+</body>
+</html>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/func.js"></script>
+<script src="js/socket.io.js"></script>
+<script src="js/socket.min.js"></script>
+<script>
+	//建立连接
+//	var ws = new WebSocket("ws://192.168.1.40:8181");
+	var ws = new WebSocket("ws://192.168.18.11:8181");
+	var nickname = "";
+	var countLeft = 0;
+	var countRight = 0;
+	var timer = null;
+
+	var socket = io('http://192.168.18.11:8082');
+//	var socket = io('http://192.168.16.150:8082');
+//	var socket = io('http://192.168.16.171:8082');
+
+	var count = 0;
+	var numC = 1;
+	var numB = 1;
+	var leftNum = 0;
+	var rightNum = 0;
+
+	socket.on('server_hello', function (data)
+	{
+		console.log(data)
+		//首次连接成功
+	})
+
+
+	ws.onopen = function (e)
+	{
+		console.log('Connection to server opened');
+		var netData = {
+			type: 'cour',
+			pageStatus: 2,
+			courseType: 5
+		}
+		ws.send(JSON.stringify(netData));
+	}
+	//收到消息处理
+	ws.onmessage = function (e)
+	{
+		var data = JSON.parse(e.data)
+		console.log(data);
+		if (data.pageStatus == 2)
+		{
+			socket.on('touch', function (data)
+			{
+				var $x = 0;
+				var $y = 0;
+
+				if(data.e == 'add'){
+					$('<div class="box" id="'+data.id+'">').css({top: data.y + 'px', left: data.x + 'px'}).appendTo("body");
+				} else if(data.e == 'del'){
+					$("#"+data.id).remove();
+					console.log("#" + data.id);
+//					$('<div class="box" id="'+data.id+'">').css({top: $y, left: $x}).appendTo("body");
+				}
+				if (data.x != undefined)
+				{
+					$x = data.x;
+					$y = data.y;
+					switch (numC)
+					{
+						case 1:
+							if (getPosition('#latLeft .num-count1', $x, $y))
+							{
+								leftNum = setTab(leftNum, '#latLeft', '#countLeftNum');
+								if (leftNum % 5 == 0 && leftNum != 0)
+								{
+									numC++;
+								}
+							}
+							break;
+						case 2:
+							if (getPosition('#latLeft .num-count2', $x, $y))
+							{
+								leftNum = setTab(leftNum, '#latLeft', '#countLeftNum');
+								if (leftNum % 5 == 0)
+								{
+									numC++;
+									$('#countLeftNum .count-num').removeClass('one-num')
+								}
+							}
+							break;
+						case 3:
+							if (getPosition('#latLeft .num-count3', $x, $y))
+							{
+								leftNum = setTab(leftNum, '#latLeft', '#countLeftNum')
+								if (leftNum % 5 == 0)
+								{
+									numC++;
+								}
+							}
+							break;
+						case 4:
+							if (getPosition('#latLeft .num-count4', $x, $y))
+							{
+								leftNum = setTab(leftNum, '#latLeft', '#countLeftNum')
+								if (leftNum % 5 == 0)
+								{
+									numC++;
+								}
+							}
+							break;
+						case 5:
+							if (getPosition('#latLeft .num-count5', $x, $y))
+							{
+								leftNum = setTab(leftNum, '#latLeft', '#countLeftNum')
+								if (leftNum % 5 == 0)
+								{
+									numC++;
+								}
+							}
+							break;
+						case 6:
+							if (getPosition('#latLeft .num-count6', $x, $y))
+							{
+								leftNum = setTab(leftNum, '#latLeft', '#countLeftNum');
+								if (leftNum % 5 == 0)
+								{
+									numC++;
+								}
+							}
+							break;
+						case 7:
+							if (getPosition('#latLeft .num-count7', $x, $y))
+							{
+								leftNum = setTab(leftNum, '#latLeft', '#countLeftNum')
+								if (leftNum % 5 == 0)
+								{
+									numC++;
+								}
+							}
+							break;
+						case 8:
+							if (getPosition('#latLeft .num-count8', $x, $y))
+							{
+								leftNum = setTab(leftNum, '#latLeft', '#countLeftNum')
+								if (leftNum % 5 == 0)
+								{
+									numC++;
+								}
+							}
+							break;
+						case 9:
+							if (getPosition('#latLeft .num-count9', $x, $y))
+							{
+								leftNum = setTab(leftNum, '#latLeft', '#countLeftNum')
+								if (leftNum % 5 == 0)
+								{
+									numC = 1;
+								}
+							}
+							break;
+					}
+					switch (numB)
+					{
+						case 1:
+							if (getPosition('#latRight .num-count1', $x, $y))
+							{
+								rightNum = setTab(rightNum, '#latRight', '#countRightNum');
+								if (rightNum % 5 == 0 && rightNum != 0)
+								{
+									numB++;
+								}
+							}
+							break;
+						case 2:
+							if (getPosition('#latRight .num-count2', $x, $y))
+							{
+								rightNum = setTab(rightNum, '#latRight', '#countRightNum');
+								if (rightNum % 5 == 0)
+								{
+									numB++;
+									$('#countRightNum .count-num').removeClass('one-num')
+								}
+							}
+							break;
+						case 3:
+							if (getPosition('#latRight .num-count3', $x, $y))
+							{
+								rightNum = setTab(rightNum, '#latRight', '#countRightNum')
+								if (rightNum % 5 == 0)
+								{
+									numB++;
+								}
+							}
+							break;
+						case 4:
+							if (getPosition('#latRight .num-count4', $x, $y))
+							{
+								rightNum = setTab(rightNum, '#latRight', '#countRightNum')
+								if (rightNum % 5 == 0)
+								{
+									numB++;
+								}
+							}
+							break;
+						case 5:
+							if (getPosition('#latRight .num-count5', $x, $y))
+							{
+								rightNum = setTab(rightNum, '#latRight', '#countRightNum')
+								if (rightNum % 5 == 0)
+								{
+									numB++;
+								}
+							}
+							break;
+						case 6:
+							if (getPosition('#latRight .num-count6', $x, $y))
+							{
+								rightNum = setTab(rightNum, '#latRight', '#countRightNum');
+								if (rightNum % 5 == 0)
+								{
+									numB++;
+								}
+							}
+							break;
+						case 7:
+							if (getPosition('#latRight .num-count7', $x, $y))
+							{
+								rightNum = setTab(rightNum, '#latRight', '#countRightNum')
+								if (rightNum % 5 == 0)
+								{
+									numB++;
+								}
+							}
+							break;
+						case 8:
+							if (getPosition('#latRight .num-count8', $x, $y))
+							{
+								rightNum = setTab(rightNum, '#latRight', '#countRightNum')
+								if (rightNum % 5 == 0)
+								{
+									numB++;
+								}
+							}
+							break;
+						case 9:
+							if (getPosition('#latRight .num-count9', $x, $y))
+							{
+								rightNum = setTab(rightNum, '#latRight', '#countRightNum')
+								if (rightNum % 5 == 0)
+								{
+									numB = 1;
+								}
+							}
+							break;
+					}
+				}
+
+			})
+
+			var href = window.location.href.split('/');
+			if (href[href.length - 1] != 'touch' + data.courseId + '.html')
+			{
+				window.location.href = 'touch' + data.courseId + '.html';
+			}
+			var h = parseInt(data.totalTime / (60 * 60 * 1000));
+			var m = parseInt((data.totalTime - h * 60 * 60 * 1000) / (60 * 1000));
+			var s = parseInt((data.totalTime - h * 60 * 60 * 1000 - m * 60 * 1000) / 1000);
+			var ms = parseInt((data.totalTime - h * 60 * 60 * 1000 - m * 60 * 1000 - s * 1000) / 100);
+			if (data.courseType == 0 || data.courseType == 2)
+			{
+				if (data.courseType == 2)
+				{
+					h = parseInt(data.totalTime / (60 * 60 * 1000));
+					m = parseInt((data.totalTime - h * 60 * 60 * 1000) / (60 * 1000));
+					s = parseInt((data.totalTime - h * 60 * 60 * 1000 - m * 60 * 1000) / 1000);
+					ms = parseInt((data.totalTime - h * 60 * 60 * 1000 - m * 60 * 1000 - s * 1000) / 100);
+					setTime(h, m, s, ms, 'time-logo');
+				}
+
+				clearInterval(timer);
+				timer = setInterval(function ()
+				{
+
+					++ms == 100 ? (s++, ms = 0) : null;
+					s == 60 ? (m++, s = 0) : null;
+					m == 60 ? (h++, m = 0) : null;
+					setTime(h, m, s, ms, 'time-logo');
+				}, 10);
+			}
+			if (data.courseType == 1)
+			{
+				clearInterval(timer);
+				h = parseInt(data.totalTime / (60 * 60 * 1000));
+				m = parseInt((data.totalTime - h * 60 * 60 * 1000) / (60 * 1000));
+				s = parseInt((data.totalTime - h * 60 * 60 * 1000 - m * 60 * 1000) / 1000);
+				ms = parseInt((data.totalTime - h * 60 * 60 * 1000 - m * 60 * 1000 - s * 1000) / 100);
+				setTime(h, m, s, ms, 'time-logo');
+			}
+
+			if (data.courseType == 3)
+			{
+				clearInterval(timer);
+				h = 0;
+				m = 0;
+				s = 0;
+				ms = 0;
+				count = 0;
+				setTime(h, m, s, ms, 'time-logo');
+			}
+		}
+		else if (data.pageStatus == 1)
+		{
+			window.location.href = 'index' + data.pageId + '.html';
+		}
+
+	}
+	ws.onclose = function (e)
+	{
+		console.log("Connection closed");
+	}
+
+	//发送消息
+	function sendMessage($data)
+	{
+		ws.send(JSON.stringify({
+			value: $data,
+			id: 1,
+			type: -1
+		}));
+
+	}
+
+	function sendMessage2($type)
+	{
+		ws.send(JSON.stringify({
+			id: 1,
+			type: $type
+		}));
+
+	}
+
+	function disconnect()
+	{
+		ws.close();
+	}
+</script>
+
+<script>
+
+
+	function setTab(numCount, id, dir)
+	{
+		numCount++;
+		if (numCount % 5 == 0)
+		{
+			if (numCount / 5 == 9)
+			{
+				setLatCount(dir, numCount, 'count-type-');
+				$(id + ' .num-count' + numCount / 5 + ' .num-bg').removeClass().addClass('num-bg');
+				$(id + ' .num-count1 .num-bg').removeClass().addClass('num-bg click-scale');
+				numCount = 0;
+				return numCount;
+			}
+			$(id + ' .num-count' + numCount / 5 + ' .num-bg').removeClass().addClass('num-bg');
+			$(id + ' .num-count' + (numCount / 5 + 1) + ' .num-bg').removeClass().addClass('num-bg click-scale');
+
+			setLatCount(dir, numCount, 'count-type-');
+			return numCount;
+		}
+		else
+		{
+			setLatCount(dir, numCount, 'count-type-');
+			return numCount;
+		}
+	}
+
+</script>

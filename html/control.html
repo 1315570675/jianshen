@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+	</style>
+	<link rel="stylesheet" href="./css/control.css">
+</head>
+<body>
+<div class="g-nav">
+	<div id="base">基本墙面</div>
+	<div id="class">课程墙面</div>
+</div>
+<div class="g-base">
+	<div class="base-qm">
+		<div onclick="changePage(1)">红色墙面 <p style="display: none" id="page1">正在使用</p></div>
+		<div onclick="changePage(2)">黄色墙面 <p style="display: none" id="page2">正在使用</p></div>
+		<div onclick="changePage(3)">蓝色墙面 <p style="display: none" id="page3">正在使用</p></div>
+	</div>
+	<div class="base-time">
+		<span>上课时间</span>
+		<span id="time">00：00:00</span>
+	</div>
+
+	<div class="base-opt">
+		<div onclick="sendMessage(1,0);">上课</div>
+		<div onclick="sendMessage(1,1);">暂停</div>
+		<div onclick="sendMessage(1,2);">开始</div>
+		<div onclick="sendMessage(1,3);">下课</div>
+	</div>
+</div>
+
+<div class="g-project">
+	<div class="base-qm">
+		<div onclick="changeCourse(1)">触摸对抗 <p style="display: none" id="course1">正在使用</p></div>
+		<div onclick="changeCourse(2)">触摸左右 <p style="display: none" id="course2">正在使用</p></div>
+		<div onclick="changeCourse(3)">九宫格 <p style="display: none" id="course3">正在使用</p></div>
+		<div onclick="changeCourse(4)">药球 <p style="display: none" id="course4">正在使用</p></div>
+
+	</div>
+	<div class="base-time">
+		<span>上课时间</span>
+		<span id="time2">00：00:00</span>
+	</div>
+	<div class="base-opt">
+		<div onclick="sendMessage(2,0);">上课</div>
+		<div onclick="sendMessage(2,1);">暂停</div>
+		<div onclick="sendMessage(2,2);">开始</div>
+		<div onclick="sendMessage(2,3);">下课</div>
+	</div>
+</div>
+</body>
+</html>
+<script>
+	var oHtml = document.getElementsByTagName("html")[0];
+	var screenW = document.documentElement.offsetWidth || document.body.offsetWidth;
+	oHtml.style.fontSize = 100 * screenW / 1024 + "px";
+</script>
+<script>
+
+
+</script>
+
+<script>
+	//建立连接
+//	var ws = new WebSocket("ws://192.168.1.40:8181");
+	var ws = new WebSocket("ws://192.168.18.11:8181");
+
+	var nickname = "";
+	var timer;
+	var timer2;
+	var pageId = 1;
+	var courseId = 1;
+	var classType = -1;
+	var courseType = -1;
+
+	var oBase = document.getElementById('base');
+	var oClass = document.getElementById('class');
+	var gBase = document.getElementsByClassName('g-base')[0];
+	var gProject = document.getElementsByClassName('g-project')[0];
+
+	oBase.onclick = function () {
+		if (courseType == -1 || courseType == 3 || courseType == 1)
+		{
+			this.style.color = '#ccc'
+			oClass.style.color = '#000'
+			gBase.style.display = 'block';
+			gProject.style.display = 'none';
+			sendMessage(1,5);
+		}
+	}
+	oClass.onclick = function () {
+		this.style.color = '#ccc'
+		oBase.style.color = '#000'
+		gBase.style.display = 'none';
+		gProject.style.display = 'block';
+		sendMessage(2,5);
+	}
+
+	ws.onopen = function (e) {
+		console.log('Connection to server opened');
+		var netData={
+			type:'control',
+			isFirst:true
+		}
+		ws.send(JSON.stringify(netData));
+	};
+
+	//收到消息处理
+	ws.onmessage = function (e) {
+		var data = JSON.parse(e.data);
+		console.log(data);
+		if (data.pageStatus == 1)
+		{
+			classType = data.classType;
+			pageId = data.pageId;
+			document.getElementById('page1').style = 'display:none';
+			document.getElementById('page2').style = 'display:none';
+			document.getElementById('page3').style = 'display:none';
+			document.getElementById('page' + pageId).style = 'display:block';
+			if (data.classType == 0 || data.classType == 2)
+			{
+				clearInterval(timer);
+				var h = Math.floor(data.totalTime / 1000 / 60 / 60 % 24);
+				var m = Math.floor(data.totalTime / 1000 / 60 % 60);
+				var s = Math.floor(data.totalTime / 1000 % 60);
+				var ms = Math.floor(data.totalTime % 100);
+				timer = setInterval(function () {
+					++ms == 100 ? (s++, ms = 0) : null;
+					s == 60 ? (m++, s = 0) : null;
+					m == 60 ? (h++, m = 0) : null;
+					document.getElementById('time').innerHTML = h + ':' + m + ':' + s + ':' + ms;
+				}, 10);
+
+			}
+			if (data.classType == 1)
+			{
+				clearInterval(timer);
+				var h = Math.floor(data.totalTime / 1000 / 60 / 60 % 24);
+				var m = Math.floor(data.totalTime / 1000 / 60 % 60);
+				var s = Math.floor(data.totalTime / 1000 % 60);
+				var ms = Math.floor(data.totalTime % 100);
+				document.getElementById('time').innerHTML = h + ':' + m + ':' + s + ':' + ms;
+			}
+			if (data.classType == 3 || data.classType == -1)
+			{
+				clearInterval(timer);
+				var h = 0;
+				var m = 0;
+				var s = 0;
+				document.getElementById('time').innerHTML = h + ':' + m + ':' + s;
+
+			}
+		}
+		else
+		{
+			//课程处理
+			courseType = data.courseType;
+			courseId = data.courseId;
+			document.getElementById('course1').style = 'display:none';
+			document.getElementById('course2').style = 'display:none';
+			document.getElementById('course3').style = 'display:none';
+			document.getElementById('course4').style = 'display:none';
+			document.getElementById('course' + courseId).style = 'display:block';
+			if (data.courseType == 0 || data.courseType == 2)
+			{
+				clearInterval(timer2);
+				var h = Math.floor(data.totalTime / 1000 / 60 / 60 % 24);
+				var m = Math.floor(data.totalTime / 1000 / 60 % 60);
+				var s = Math.floor(data.totalTime / 1000 % 60);
+				var ms = Math.floor(data.totalTime % 100);
+				timer2 = setInterval(function () {
+					++ms == 100 ? (s++, ms = 0) : null;
+					s == 60 ? (m++, s = 0) : null;
+					m == 60 ? (h++, m = 0) : null;
+					document.getElementById('time2').innerHTML = h + ':' + m + ':' + s + ':' + ms;
+				}, 10);
+				oClass.style.color = '#ccc'
+				oBase.style.color = '#000'
+				gBase.style.display = 'none';
+				gProject.style.display = 'block';
+
+			}
+			if (data.courseType == 1)
+			{
+				clearInterval(timer2);
+				var h = Math.floor(data.totalTime / 1000 / 60 / 60 % 24);
+				var m = Math.floor(data.totalTime / 1000 / 60 % 60);
+				var s = Math.floor(data.totalTime / 1000 % 60);
+				var ms = Math.floor(data.totalTime % 100);
+				document.getElementById('time2').innerHTML = h + ':' + m + ':' + s + ':' + ms;
+			}
+			if (data.courseType == 3 || data.courseType == -1)
+			{
+				clearInterval(timer2);
+				var h = 0;
+				var m = 0;
+				var s = 0;
+				document.getElementById('time2').innerHTML = h + ':' + m + ':' + s;
+
+			}
+		}
+
+
+	}
+	ws.onclose = function (e) {
+		console.log("Connection closed");
+	}
+
+	function changePage($id)
+	{
+
+
+			if (classType == -1 || classType == 3 || classType == 1)
+			{
+				pageId = $id;
+				sendMessage(1, -1);
+				document.getElementById('page1').style = 'display:none';
+				document.getElementById('page2').style = 'display:none';
+				document.getElementById('page3').style = 'display:none';
+				document.getElementById('page' + pageId).style = 'display:block';
+			}
+
+	}
+
+	function changeCourse($id)
+	{
+		if (courseType == -1 || courseType == 3 || courseType == 1)
+		{
+			courseId = $id;
+			sendMessage(2, -1);
+			document.getElementById('course1').style = 'display:none';
+			document.getElementById('course2').style = 'display:none';
+			document.getElementById('course3').style = 'display:none';
+			document.getElementById('course' + courseId).style = 'display:block';
+		}
+	}
+
+	function sendMessage($pageStatus, $type)
+	{
+		var netData = {
+			pageStatus: $pageStatus,
+			type:'control'
+		};
+		if ($pageStatus == 1)
+		{
+			netData.pageId = pageId;
+			netData.classType = $type;
+		}
+		else
+		{
+			netData.courseId = courseId;
+			netData.courseType = $type;
+		}
+		ws.send(JSON.stringify(netData));
+
+	}
+
+	function trace($data)
+	{
+		console.log($data);
+	}
+
+</script>

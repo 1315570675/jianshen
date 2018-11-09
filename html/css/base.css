@@ -1,0 +1,395 @@
+/*! reset */
+html, body, h1, h2, h3, h4, h5, h6, div, dl, dt, dd, ul, ol, li, p, blockquote, pre, hr, figure, table, caption, th, td, form, fieldset, legend, input, button, textarea, menu {
+	margin: 0;
+	padding: 0;
+	-webkit-font-smoothing: antialiased;
+	backface-visibility: hidden;
+	-webkit-backface-visibility: hidden;
+
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0
+}
+
+caption, th {
+	text-align: left;
+	font-weight: normal
+}
+
+html, body, fieldset, img, iframe, abbr {
+	border: 0
+}
+
+i, cite, em, var, address, dfn {
+	font-style: normal
+}
+
+[hidefocus], summary {
+	outline: 0
+}
+
+li {
+	list-style: none
+}
+
+h1, h2, h3, h4, h5, h6, small {
+	font-size: 100%
+}
+
+sup, sub {
+	font-size: 83%
+}
+
+pre, code, kbd, samp {
+	font-family: inherit
+}
+
+q:before, q:after {
+	content: none
+}
+
+textarea {
+	overflow: auto;
+	resize: none
+}
+
+label, summary {
+	cursor: default
+}
+
+a, button {
+	cursor: pointer
+}
+
+h1, h2, h3, h4, h5, h6, em, strong, b {
+	font-weight: bold
+}
+
+del, ins, u, s, a, a:hover {
+	text-decoration: none
+}
+
+body, textarea, input, button, select, keygen, legend {
+	font-size: 12px;
+	font-family: PingFang SC, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, Hiragino Sans GB, Microsoft Yahei, SimHei, \\5FAE\8F6F\96C5\9ED1, STHeiti, sans-serif;
+	-webkit-font-smoothing: antialiased;
+}
+
+* {
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.disabled {
+	pointer-events: none;
+	cursor: default;
+}
+
+*[disabled] {
+	pointer-events: none;
+	cursor: default !important;
+}
+
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}
+
+.relative {
+	position: relative;
+}
+
+.absolute {
+	position: absolute;
+}
+
+html, body {
+	width: 100%;
+	height: 100%;
+}
+
+.clearfix {
+	clear: both;
+}
+
+.count-0 {
+	background: url("./../images/touch1-count-num-bg.png") no-repeat;
+	background-position: left top;
+}
+
+.count-1 {
+	background: url("./../images/touch1-count-num-bg.png") no-repeat;
+	background-position: -20px top;
+}
+
+.count-2 {
+	background: url("./../images/touch1-count-num-bg.png") no-repeat;
+	background-position: -40px top;
+}
+
+.count-3 {
+	background: url("./../images/touch1-count-num-bg.png") no-repeat;
+	background-position: -60px top;
+}
+
+.count-4 {
+	background: url("./../images/touch1-count-num-bg.png") no-repeat;
+	background-position: -80px top;
+}
+
+.count-5 {
+	background: url("./../images/touch1-count-num-bg.png") no-repeat;
+	background-position: -100px top;
+}
+
+.count-6 {
+	background: url("./../images/touch1-count-num-bg.png") no-repeat;
+	background-position: -120px top;
+}
+
+.count-7 {
+	background: url("./../images/touch1-count-num-bg.png") no-repeat;
+	background-position: -140px top;
+}
+
+.count-8 {
+	background: url("./../images/touch1-count-num-bg.png") no-repeat;
+	background-position: -160px top;
+}
+
+.count-9 {
+	background: url("./../images/touch1-count-num-bg.png") no-repeat;
+	background-position: -180px top;
+}
+
+.count-type-0 {
+	background: url("./../images/count-num-logo.png") no-repeat;
+	background-position: left top;
+}
+
+.count-type-1 {
+	background: url("./../images/count-num-logo.png") no-repeat;
+	background-position: -17px top;
+}
+
+.count-type-2 {
+	background: url("./../images/count-num-logo.png") no-repeat;
+	background-position: -37px top;
+}
+
+.count-type-3 {
+	background: url("./../images/count-num-logo.png") no-repeat;
+	background-position: -57px top;
+}
+
+.count-type-4 {
+	background: url("./../images/count-num-logo.png") no-repeat;
+	background-position: -77px top;
+}
+
+.count-type-5 {
+	background: url("./../images/count-num-logo.png") no-repeat;
+	background-position: -97px top;
+}
+
+.count-type-6 {
+	background: url("./../images/count-num-logo.png") no-repeat;
+	background-position: -117px top;
+}
+
+.count-type-7 {
+	background: url("./../images/count-num-logo.png") no-repeat;
+	background-position: -137px top;
+}
+
+.count-type-8 {
+	background: url("./../images/count-num-logo.png") no-repeat;
+	background-position: -157px top;
+}
+
+.count-type-9 {
+	background: url("./../images/count-num-logo.png") no-repeat;
+	background-position: -177px top;
+}
+
+.time-logo0 {
+	background: url("./../images/time-num-logo.png") no-repeat;
+	background-position: left top;
+}
+
+.time-logo1 {
+	background: url("./../images/time-num-logo.png") no-repeat;
+	background-position: -45px top;
+}
+
+.time-logo2 {
+	background: url("./../images/time-num-logo.png") no-repeat;
+	background-position: -90px top;
+}
+
+.time-logo3 {
+	background: url("./../images/time-num-logo.png") no-repeat;
+	background-position: -135px top;
+}
+
+.time-logo4 {
+	background: url("./../images/time-num-logo.png") no-repeat;
+	background-position: -180px top;
+}
+
+.time-logo5 {
+	background: url("./../images/time-num-logo.png") no-repeat;
+	background-position: -225px top;
+}
+
+.time-logo6 {
+	background: url("./../images/time-num-logo.png") no-repeat;
+	background-position: -270px top;
+}
+
+.time-logo7 {
+	background: url("./../images/time-num-logo.png") no-repeat;
+	background-position: -315px top;
+}
+
+.time-logo8 {
+	background: url("./../images/time-num-logo.png") no-repeat;
+	background-position: -360px top;
+}
+
+.time-logo9 {
+	background: url("./../images/time-num-logo.png") no-repeat;
+	background-position: -405px top;
+}
+
+
+.left{
+	float: left;
+}
+.right{
+	float: right;
+}
+.relative{
+	position: relative;
+}
+.absolute{
+	position: absolute;
+}
+html,body{
+	width: 100%;
+	height: 100%;
+}
+.clearfix{
+	clear: both;
+}
+
+.one-num .no1-num{
+	display: none;
+}
+.one-num .no2-num{
+	margin-left: 15px;
+}
+
+.time-logo-0{
+	background: url("./../images/qm1-num-logo1.png") no-repeat;
+	background-position: left top;
+}
+
+.time-logo-1{
+	background: url("./../images/qm1-num-logo1.png") no-repeat;
+	background-position: -50px top;
+}
+
+.time-logo-2{
+	background: url("./../images/qm1-num-logo1.png") no-repeat;
+	background-position: -100px top;
+}
+
+.time-logo-3{
+	background: url("./../images/qm1-num-logo1.png") no-repeat;
+	background-position: -150px top;
+}
+
+.time-logo-4{
+	background: url("./../images/qm1-num-logo1.png") no-repeat;
+	background-position: -200px top;
+}
+
+.time-logo-5{
+	background: url("./../images/qm1-num-logo1.png") no-repeat;
+	background-position: -251px top;
+}
+
+.time-logo-6{
+	background: url("./../images/qm1-num-logo1.png") no-repeat;
+	background-position: -300px top;
+}
+
+.time-logo-7{
+	background: url("./../images/qm1-num-logo1.png") no-repeat;
+	background-position: -350px top;
+}
+
+.time-logo-8{
+	background: url("./../images/qm1-num-logo1.png") no-repeat;
+	background-position: -400px top;
+}
+
+.time-logo-9{
+	background: url("./../images/qm1-num-logo1.png") no-repeat;
+	background-position: -450px top;
+}
+
+.per-logo0 {
+	background: url("./../images/qm1-num-logo2.png") no-repeat;
+	background-position: 0px top;
+}
+
+.per-logo1 {
+	background: url("./../images/qm1-num-logo2.png") no-repeat;
+	background-position: -35px top;
+}
+
+.per-logo2 {
+	background: url("./../images/qm1-num-logo2.png") no-repeat;
+	background-position: -70px top;
+}
+
+.per-logo3 {
+	background: url("./../images/qm1-num-logo2.png") no-repeat;
+	background-position: -105px top;
+}
+
+.per-logo4 {
+	background: url("./../images/qm1-num-logo2.png") no-repeat;
+	background-position: -140px top;
+}
+
+.per-logo5 {
+	background: url("./../images/qm1-num-logo2.png") no-repeat;
+	background-position: -175px top;
+}
+
+.per-logo6 {
+	background: url("./../images/qm1-num-logo2.png") no-repeat;
+	background-position: -210px top;
+}
+
+.per-logo7 {
+	background: url("./../images/qm1-num-logo2.png") no-repeat;
+	background-position: -245px top;
+}
+
+.per-logo8 {
+	background: url("./../images/qm1-num-logo2.png") no-repeat;
+	background-position: -280px top;
+}
+
+.per-logo9 {
+	background: url("./../images/qm1-num-logo2.png") no-repeat;
+	background-position: -316px top;
+}
